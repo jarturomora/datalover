@@ -3,13 +3,15 @@ import json
 import datetime
 import csv
 import time
+import unicodedata
 
 app_id = "899642613543827"
 app_secret = "85ec66c7b1f63f657661bdbe34c70446" # From bnn-sentiment-analysis Jams FB account.
-file_id = "JoseAMeadeK"
-#file_id = raw_input("Please Paste the Page name or Group ID:")
+# page_id = raw_input("Please Paste Public Page Name:")
+page_id = "hellandheavenmetalfest"
 
 access_token = app_id + "|" + app_secret
+    
 # access_token = raw_input("Please Paste Your Access Token:")
 
 def request_until_succeed(url):
@@ -31,8 +33,10 @@ def request_until_succeed(url):
 
 # Needed to write tricky unicode correctly to csv
 def unicode_normalize(text):
-    return text.translate({ 0x2018:0x27, 0x2019:0x27, 0x201C:0x22, 0x201D:0x22,
-                            0xa0:0x20 }).encode('utf-8')
+    # return text.translate({ 0x2018:0x27, 0x2019:0x27, 0x201C:0x22, 
+    #                         0x201D:0x22, 0xa0:0x20 }).encode('utf-8')
+    # return unicodedata.normalize('NFD', text).encode('latin-1', 'replace')
+    return text.encode('latin-1', 'replace')
 
 def getFacebookPageFeedData(page_id, access_token, num_statuses):
 
