@@ -37,7 +37,10 @@ def unicode_normalize(text):
     # return text.translate({ 0x2018:0x27, 0x2019:0x27, 0x201C:0x22, 
     #                         0x201D:0x22, 0xa0:0x20 }).encode('utf-8')
     # return unicodedata.normalize('NFD', text).encode('latin-1', 'replace')
-    return text.encode('latin-1', 'replace')
+    text = text.encode('latin-1', 'replace')
+    text.replace(",", " ")
+    text.replace(";", " ")
+    return text
 
 def getFacebookCommentFeedData(status_id, access_token, num_comments):
 
